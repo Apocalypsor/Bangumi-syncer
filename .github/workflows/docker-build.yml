@@ -6,7 +6,7 @@ on:
       - v*
 
 env:
-  DOCKERHUB_REPO: sanaemio/bangumi-syncer
+  DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_USERNAME }}/bangumi-syncer
 
 jobs:
   push_to_registry:
