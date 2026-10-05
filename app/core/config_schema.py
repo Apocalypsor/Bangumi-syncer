@@ -231,6 +231,17 @@ SECTIONS: dict[str, SectionMeta] = {
             FieldMeta(name="sync_interval", default="*/3 * * * *"),
         ),
     ),
+    "plex-poll": SectionMeta(
+        name="plex-poll",
+        display_name="Plex 主动同步",
+        order=115,
+        scheduler_id="plex_poll",
+        sensitive_fields=frozenset({"token"}),
+        fields=(
+            FieldMeta(name="enabled", loose_true=True),
+            FieldMeta(name="sync_interval", default="*/15 * * * *"),
+        ),
+    ),
     "trakt": SectionMeta(
         name="trakt",
         display_name="Trakt 同步",

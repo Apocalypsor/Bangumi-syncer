@@ -10,6 +10,7 @@ order: 30
 - [自定义 Webhook](./custom-webhook)
 - [Plex（Tautulli）](./tautulli)
 - [Plex Webhooks](./plex-webhooks)
+- [Plex 主动同步（手动标记与历史导入）](./plex-poll)
 - [Emby 通知](./emby)
 - [Jellyfin Webhook 插件](./jellyfin)
 - [Trakt定时同步](./trakt)

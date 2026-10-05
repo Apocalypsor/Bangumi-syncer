@@ -88,6 +88,7 @@
                 {%
                 include "config/_feiniu.html" %}
                 {% include "config/_fongmi.html" %}
+                {% include "config/_plex_poll.html" %}
                 {%
                 include "config/_bangumi_archive.html" %}
                 {% include "config/_matching.html" %}
@@ -1164,6 +1165,11 @@
         'feiniu.db_path',
         'feiniu.user_filter',
         'feiniu.sync_interval',
+        'plex_poll.url',
+        'plex_poll.token',
+        'plex_poll.user_name',
+        'plex_poll.library_ids',
+        'plex_poll.sync_interval',
         'fongmi.devices',
         'fongmi.subnet',
         'fongmi.sync_interval',
@@ -1889,78 +1895,6 @@
 
   // ========== Webhook 配置管理 ==========
 
-  // 加载 Webhook 配置列表
-  async function loadWebhookConfigs() {
-    try {
-      const data = await apiFetch('/api/notification/webhooks')
-
-      if (data.status === 'success') {
-        renderWebhookConfigs(data.data)
-      } else {
-        console.error('加载 Webhook 配置失败:', data.message)
-      }
-    } catch (error) {
-      console.error('加载 Webhook 配置失败:', error)
-    }
-  }
-
-  // 渲染 Webhook 配置列表
-  function renderWebhookConfigs(webhooks) {
-    const container = document.getElementById('webhook-configs-container')
-
-    if (!webhooks || webhooks.length === 0) {
-      container.innerHTML = `
-            <div class="app-empty-state app-empty-state--sm">
-                <i class="bi bi-inbox app-empty-state__icon"></i>
-                <p class="text-muted mt-3 mb-0">暂无 Webhook 配置</p>
-                <button type="button" class="btn btn-outline-primary btn-sm" onclick="showChannelConfigModal()">
-                    <i class="bi bi-plus-lg me-1"></i>添加第一个配置
-                </button>
-            </div>
-        `
-      return
-    }
-
-    let html = '<div class="row g-3">'
-    webhooks.forEach((webhook) => {
-      html += `
-            <div class="col-12">
-                <div class="card border ${webhook.enabled ? 'border-primary' : 'border-secondary'}">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-send ${webhook.enabled ? 'text-success' : 'text-muted'} me-2"></i>
-                                <h6 class="card-title mb-0">Webhook #${webhook.id}</h6>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="webhook-enabled-${webhook.id}"
-                                       ${webhook.enabled ? 'checked' : ''} onchange="toggleWebhookEnabled(${webhook.id}, this.checked)">
-                                <label class="form-check-label" for="webhook-enabled-${webhook.id}"></label>
-                            </div>
-                        </div>
-                        <p class="card-text small text-muted mb-2">
-                            <i class="bi bi-link-45deg me-1"></i>${webhook.url}
-                        </p>
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="showChannelConfigModal()">
-                                <i class="bi bi-pencil me-1"></i>编辑
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="testWebhook(${webhook.id})">
-                                <i class="bi bi-play-circle me-1"></i>测试
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteWebhookInline(${webhook.id})">
-                                <i class="bi bi-trash me-1"></i>删除
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
-    })
-    html += '</div>'
-    container.innerHTML = html
-  }
-
   // 切换 Webhook 启用状态
   async function toggleWebhookEnabled(webhookId, enabled) {
     try {
@@ -1974,7 +1908,7 @@
 
       if (data.status === 'success') {
         showAlert(enabled ? 'Webhook 已启用' : 'Webhook 已禁用', 'success')
-        await loadWebhookConfigs()
+        await loadWebhookListInChannelModal()
       } else {
         showAlert('操作失败: ' + data.message, 'danger')
         // 恢复开关状态
@@ -3807,7 +3741,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-1">
                             <span class="fw-semibold small">Webhook #${wh.id}</span>
                             <div class="form-check form-switch form-check-sm">
-                                <input class="form-check-input" type="checkbox" ${wh.enabled ? 'checked' : ''}
+                                <input class="form-check-input" type="checkbox" id="webhook-enabled-${wh.id}" ${wh.enabled ? 'checked' : ''}
                                        onchange="toggleWebhookEnabled(${wh.id}, this.checked)">
                             </div>
                         </div>
@@ -4641,4 +4575,5 @@
     }
   }
     </script>
+    <script src="{{ '/static/js/plex-poll.js' | static_v }}"></script>
 {% endblock %}

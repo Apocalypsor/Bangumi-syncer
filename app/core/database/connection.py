@@ -561,6 +561,15 @@ class DatabaseConnection:
             )
         """)
 
+        # Plex 已看状态拉取的成功记录，重启或清理同步日志后仍保留
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS plex_poll_history (
+                scope TEXT NOT NULL,
+                rating_key TEXT NOT NULL,
+                PRIMARY KEY (scope, rating_key)
+            )
+        """)
+
         # 飞牛影视 trimmedia 同步去重表
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS feiniu_sync_history (

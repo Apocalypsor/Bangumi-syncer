@@ -7,6 +7,8 @@ order: 12
 
 **（默认您的账号已拥有 Plex Pass，以下内容只需要设置一次）**
 
+需要同步手动「标记已看」或已有媒体库的观看状态时，请使用 [Plex 主动同步](./plex-poll)。Webhook 处理播放事件，主动同步定时读取已看状态，两者可以同时启用。
+
 1. 运行 Bangumi-syncer。
 
 2. 打开 Plex 控制面板，右上角 `设置` → `Webhooks` → `添加 Webhook`。

@@ -385,8 +385,10 @@ class TestLooseTrueFields:
     def test_count_matches_legacy(self):
         """原硬编码 4 个 loose_true 字段；ECH 改造新增 dev.ech_doh_use_proxy 第 5 个；
         archive BK-tree 开关新增 bangumi_archive.use_bktree 第 6 个；
-        裁决层开关新增 matching.arbiter_enabled 第 7 个"""
-        assert len(config_schema.loose_true_fields()) == 7
+        裁决层开关新增 matching.arbiter_enabled 第 7 个；
+        Plex 主动同步新增 plex_poll.enabled 第 8 个"""
+        assert "plex_poll.enabled" in config_schema.loose_true_fields()
+        assert len(config_schema.loose_true_fields()) == 8
 
     def test_includes_matching_arbiter_enabled(self):
         assert "matching.arbiter_enabled" in config_schema.loose_true_fields()

@@ -45,6 +45,7 @@ Bangumi-syncer 是一款把常见媒体库与 [Bangumi（番组计划）](https:
 | --- | --- | --- | --- | --- |
 | **Plex** | Tautulli(免费) | ✅ | ✅ | ✅ |
 | **Plex** | 官方Webhooks(需Plex Pass) | ✅ | ✅ | ✅ |
+| **Plex** | [主动拉取已看状态（含手动标记与历史导入）](https://sanaemio.github.io/Bangumi-syncer/usage/plex-poll) | ✅ | ❌ | ✅ |
 | **Emby** | 服务器自带通知 | ✅ | ✅ | ✅ |
 | **Jellyfin** | Webhook 插件 | ✅ | ✅ | ✅ |
 | **Trakt** | 定时任务拉取账户播放历史 | ✅ | ❌ | ✅ |

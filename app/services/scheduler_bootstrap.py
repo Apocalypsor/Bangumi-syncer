@@ -29,6 +29,12 @@ def register_all() -> None:
         JobSpec(scheduler_id="feiniu", runner=feiniu_scheduler)
     )
 
+    from .plex_poll.scheduler import plex_poll_scheduler
+
+    scheduler_registry.register_spec(
+        JobSpec(scheduler_id="plex_poll", runner=plex_poll_scheduler)
+    )
+
     from .fongmi.scheduler import fongmi_scheduler
 
     scheduler_registry.register_spec(

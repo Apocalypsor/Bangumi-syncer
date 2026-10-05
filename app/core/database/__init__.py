@@ -31,6 +31,7 @@ from .inbox import InboxRepository
 from .llm_usage import LLMUsageRepository
 from .pending_candidates import PendingCandidatesRepository
 from .pending_sync_queue import PendingSyncQueueRepository
+from .plex_poll import PlexPollRepository
 from .sync_records import SyncRecordsRepository
 from .trakt import TraktRepository
 
@@ -56,6 +57,7 @@ class DatabaseManager:
         self._inbox = InboxRepository(self._connection, self._feiniu)
         self._sync = SyncRecordsRepository(self._connection, self._inbox)
         self._trakt = TraktRepository(self._connection)
+        self.plex_poll = PlexPollRepository(self._connection)
         self._bangumi_accounts = BangumiAccountRepository(self._connection)
         self._oauth_state = OAuthStateRepository(self._connection)
         self.llm_usage = LLMUsageRepository(self._connection)

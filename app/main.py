@@ -31,6 +31,7 @@ from .api.logs import router as logs_router
 from .api.mappings import router as mappings_router
 from .api.notification import router as notification_router
 from .api.pages import router as pages_router
+from .api.plex_poll import router as plex_poll_router
 from .api.proxy import router as proxy_router
 from .api.summary_jobs import router as summary_jobs_router
 from .api.sync import root_router, router as sync_router
@@ -226,6 +227,7 @@ app.include_router(inbox_router)
 app.include_router(trakt_router)
 app.include_router(feiniu_router)
 app.include_router(fongmi_router)
+app.include_router(plex_poll_router)
 app.include_router(upgrade_router)
 app.include_router(bangumi_accounts_router)
 app.include_router(bangumi_archive_router)

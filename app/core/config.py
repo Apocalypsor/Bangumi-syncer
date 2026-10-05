@@ -570,6 +570,28 @@ class ConfigManager:
             # 时区名无效等异常降级到系统本地日期
             return _date.today()
 
+    def get_plex_poll_config(self) -> dict[str, Any]:
+        """Plex 已看状态主动同步，默认关闭。"""
+        defaults = {
+            "enabled": False,
+            "url": "",
+            "token": "",
+            "user_name": "",
+            "library_ids": "",
+            "sync_interval": "*/15 * * * *",
+        }
+        out = {**defaults, **self.get_section("plex-poll", {})}
+        out["enabled"] = str(out["enabled"]).strip().lower() in (
+            "true",
+            "1",
+            "yes",
+            "on",
+        )
+        for key in ("url", "token", "user_name", "library_ids", "sync_interval"):
+            out[key] = str(out.get(key) or defaults[key]).strip()
+        out["sync_interval"] = out["sync_interval"] or defaults["sync_interval"]
+        return out
+
     def get_feiniu_config(self) -> dict[str, Any]:
         """飞牛 trimmedia 同步配置（默认关闭）"""
         defaults: dict[str, Any] = {

@@ -164,6 +164,7 @@ function getSourceColor(source) {
     if (sourceLower.startsWith('retry-')) return 'purple';
     switch (sourceLower) {
         case 'plex': return 'warning';
+        case 'plex_poll': return 'warning';
         case 'emby': return 'success';
         case 'jellyfin': return 'primary';
         case 'custom': return 'secondary';
@@ -178,6 +179,7 @@ function getSourceColor(source) {
 function getSourceTlClass(source) {
     const s = (source || '').toLowerCase();
     if (s.startsWith('retry-')) return 'retry';
+    if (s === 'plex_poll') return 'plex';
     if (['plex', 'emby', 'jellyfin', 'custom', 'feiniu', 'fongmi', 'test', 'trakt'].indexOf(s) !== -1) return s;
     return 'custom';
 }
